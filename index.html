@@ -72,15 +72,6 @@
   .login-error{background:#ffe9e9;border:2px solid #e53935;color:#8a1f1f;font-size:14px;font-weight:600;padding:14px 16px;border-radius:14px;margin-top:14px;line-height:1.4;display:none;}
   .login-error.show{display:block;}
 
-  /* Signed-in bar */
-  .user-bar{display:flex;justify-content:space-between;align-items:center;background:#f4f9ff;border:2px solid #dde8f5;border-radius:14px;padding:12px 16px;margin-bottom:18px;gap:12px;}
-  .user-bar .who{font-size:15px;font-weight:700;color:#0b1b2f;display:flex;align-items:center;gap:8px;min-width:0;}
-  .user-bar .who .dot{width:10px;height:10px;border-radius:50%;background:#0f9d58;flex-shrink:0;box-shadow:0 0 0 3px rgba(15,157,88,.2);}
-  .user-bar .who .name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .user-bar .logout{background:#fff;border:2px solid #c9d6e8;color:#5e6f8b;font-size:13px;font-weight:800;padding:8px 14px;border-radius:10px;cursor:pointer;flex-shrink:0;letter-spacing:.3px;}
-  .user-bar .logout:hover{background:#eef2f8;color:#3d5170;}
-  .user-bar .logout:active{transform:translateY(1px);}
-
   /* Connection error banner */
   .conn-banner{display:none;background:#ffe9e9;border:2px solid #e53935;border-radius:16px;padding:18px;margin-bottom:18px;color:#8a1f1f;font-weight:600;}
   .conn-banner.show{display:block;}
@@ -171,7 +162,6 @@
   .coworkers-box .add-row button{flex-shrink:0;padding:14px 18px;border:none;border-radius:14px;background:#1e6df2;color:#fff;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 3px 0 #1652b8;}
   .coworkers-box .add-row button:active{transform:translateY(2px);box-shadow:0 1px 0 #1652b8;}
 
-  /* Employee suggestion dropdown */
   .emp-dropdown{position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border-radius:16px;box-shadow:0 16px 40px -10px rgba(0,0,0,.28);max-height:280px;overflow-y:auto;z-index:60;display:none;border:2px solid #e2eaf5;}
   .emp-dropdown.show{display:block;}
   .emp-dropdown .emp-item{padding:14px 16px;cursor:pointer;border-bottom:1px solid #f1f5fb;font-size:16px;font-weight:600;color:#0b1b2f;display:flex;align-items:center;gap:10px;}
@@ -237,11 +227,17 @@
   .footer .footer-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;}
   .footer .address-link{font-size:13px;font-weight:500;color:#5e6f8b;line-height:1.5;text-decoration:none;flex:1;min-width:0;}
   .footer .address-link:hover{color:#1e6df2;text-decoration:underline;}
-  .footer .footer-phone{font-size:13px;font-weight:600;color:#5e6f8b;text-decoration:none;white-space:nowrap;}
-  .footer .footer-phone:hover{color:#1e6df2;text-decoration:underline;}
+  .footer .footer-phone{font-size:15px;font-weight:700;color:#1e6df2;text-decoration:none;white-space:nowrap;}
+  .footer .footer-phone:hover{color:#1652b8;text-decoration:underline;}
+
+  @media (max-width: 520px){
+    .footer .company-name{font-size:15px;}
+    .footer .address-link{font-size:15px;}
+    .footer .footer-phone{font-size:15px;}
+  }
 
   @media (max-width: 420px){
-    .footer .footer-row{flex-direction:column;gap:6px;}
+    .footer .footer-row{flex-direction:column;gap:8px;}
     .footer .footer-phone{white-space:normal;}
   }
 </style>
@@ -266,7 +262,7 @@
   <div id="loginScreen">
     <div class="login-wrap">
       <div class="login-title">Employee Sign In</div>
-      <div class="login-sub">Enter your name and date of birth to continue.</div>
+      <div class="login-sub">Enter your name and the last 4 digits of your SSN to continue.</div>
 
       <div class="login-field">
         <label>Full name</label>
@@ -274,8 +270,8 @@
       </div>
 
       <div class="login-field">
-        <label>Password (your date of birth)</label>
-        <input type="text" id="loginPassword" placeholder="e.g. 02031976" inputmode="numeric" autocomplete="off" spellcheck="false">
+        <label>Password (last 4 of SSN)</label>
+        <input type="text" id="loginPassword" placeholder="e.g. 1234" inputmode="numeric" maxlength="4" autocomplete="off" spellcheck="false">
       </div>
 
       <button type="button" class="login-btn" id="loginBtn">🔓 Sign In</button>
@@ -288,14 +284,6 @@
        PORTAL CONTENT (shown after login)
        ============================================================ -->
   <div id="portalContent">
-
-    <div class="user-bar">
-      <div class="who">
-        <div class="dot"></div>
-        <div class="name">Signed in as <strong id="userNameDisplay">—</strong></div>
-      </div>
-      <button type="button" class="logout" id="logoutBtn">Sign out</button>
-    </div>
 
     <!-- Connection error banner (only shows if GET fails) -->
     <div class="conn-banner" id="connBanner">
@@ -339,10 +327,7 @@
 
       <div class="step">
         <div class="step-label"><span class="num">3</span> Who is on this job?</div>
-        <div>
-          <label style="font-size:15px;font-weight:700;color:#3d5170;display:block;margin-bottom:6px;">You</label>
-          <input type="text" id="techLeadPhoto" class="text-input" readonly>
-        </div>
+        <input type="text" id="techLeadPhoto" class="text-input" readonly>
         <div class="coworkers-box">
           <div style="font-size:15px;font-weight:700;color:#3d5170;">Other techs with you (optional)</div>
           <div class="chips" id="coworkerChipsPhoto"></div>
@@ -435,10 +420,7 @@
 
       <div class="step">
         <div class="step-label"><span class="num">4</span> Who is on this job?</div>
-        <div>
-          <label style="font-size:15px;font-weight:700;color:#3d5170;display:block;margin-bottom:6px;">You</label>
-          <input type="text" id="techLeadSign" class="text-input" readonly>
-        </div>
+        <input type="text" id="techLeadSign" class="text-input" readonly>
         <div class="coworkers-box">
           <div style="font-size:15px;font-weight:700;color:#3d5170;">Other techs with you (optional)</div>
           <div class="chips" id="coworkerChipsSign"></div>
@@ -557,31 +539,31 @@ document.getElementById("custDate").value = todayStr;
 
 /* ============================================================
    LOGIN / SESSION
+   ------------------------------------------------------------
+   Session uses sessionStorage so a page refresh signs the user
+   out automatically. Nothing is remembered across reloads.
    ============================================================ */
 const SESSION_KEY = "loggedInUser";
-let employeesCache = [];   // [{ name, dob }]
+let employeesCache = [];   // [{ name, ssn4 }]
 let currentUser = null;    // string — canonical name from sheet
 
 function setLoggedIn(name) {
   currentUser = name;
-  localStorage.setItem(SESSION_KEY, name);
+  sessionStorage.setItem(SESSION_KEY, name);
   document.body.classList.add("logged-in");
-  document.getElementById("userNameDisplay").textContent = name;
-  // Pre-fill the read-only tech lead fields
   document.getElementById("techLeadPhoto").value = name;
   document.getElementById("techLeadSign").value  = name;
 }
 
 function setLoggedOut() {
   currentUser = null;
-  localStorage.removeItem(SESSION_KEY);
+  sessionStorage.removeItem(SESSION_KEY);
   document.body.classList.remove("logged-in");
   document.getElementById("loginName").value = "";
   document.getElementById("loginPassword").value = "";
   document.getElementById("loginError").classList.remove("show");
 }
 
-// Load employees in the background so the "+ Add" dropdown is ready
 async function loadEmployees() {
   try {
     const url = APPS_SCRIPT_URL + "?action=employees&_=" + Date.now();
@@ -596,13 +578,15 @@ async function loadEmployees() {
   }
 }
 
-// Restore session on page load
-(function restoreSession() {
-  const saved = localStorage.getItem(SESSION_KEY);
-  if (saved) setLoggedIn(saved);
+// Restore session only within the same tab (sessionStorage survives
+// soft in-app navigations but is wiped on full page refresh).
+// Actually sessionStorage DOES survive refresh — so we explicitly
+// wipe on load to force a fresh login every time.
+(function forceFreshLogin() {
+  sessionStorage.removeItem(SESSION_KEY);
 })();
 
-// Login buttonconst loginBtn = document.getElementById("loginBtn");
+const loginBtn = document.getElementById("loginBtn");
 const loginError = document.getElementById("loginError");
 
 function showLoginError(msg) {
@@ -624,9 +608,7 @@ async function attemptLogin() {
 
   try {
     const url = APPS_SCRIPT_URL + "?action=login&_=" + Date.now();
-    // Use iframe submission because we need to POST JSON
     const payload = { action: "login", name: name, password: password };
-    // We'll use a fetch POST with text/plain body — Apps Script accepts it
     const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -640,7 +622,6 @@ async function attemptLogin() {
       setLoggedIn(data.name);
       loginBtn.disabled = false;
       loginBtn.textContent = "🔓 Sign In";
-      // Kick off equipment + employees load now that we're in
       loadEquipment();
       loadEmployees();
     } else {
@@ -662,11 +643,6 @@ document.getElementById("loginName").addEventListener("keydown", e => {
 });
 document.getElementById("loginPassword").addEventListener("keydown", e => {
   if (e.key === "Enter") { e.preventDefault(); attemptLogin(); }
-});
-
-document.getElementById("logoutBtn").addEventListener("click", () => {
-  if (!confirm("Sign out of the Field Portal?")) return;
-  setLoggedOut();
 });
 
 /* ============================================================
@@ -834,12 +810,6 @@ document.getElementById("connBannerTest").addEventListener("click", function() {
   window.location.reload();
 });
 
-// Only load equipment if already logged in (otherwise load after login)
-if (currentUser) {
-  loadEquipment();
-  loadEmployees();
-}
-
 /* ============================================================
    PICKER
    ============================================================ */
@@ -1004,7 +974,6 @@ document.addEventListener("click", (e) => {
     if (!pickerEl.contains(e.target) && !resultsEl.contains(e.target)) {
       resultsEl.classList.remove("show");
     }
-    // Close employee dropdown if clicking outside
     const empDD = document.getElementById(which === "photo" ? "empDropdownPhoto" : "empDropdownSign");
     const empIn = document.getElementById(which === "photo" ? "coworkerInputPhoto" : "coworkerInputSign");
     if (empDD && empIn && !empDD.contains(e.target) && !empIn.contains(e.target)) {
@@ -1308,7 +1277,6 @@ function showEmpDropdown_(which) {
   inputEl.addEventListener("click", () => showEmpDropdown_(which));
 });
 
-/* Coworker add buttons */
 document.getElementById("addCoworkerPhoto").addEventListener("click", () => flushCoworkerInput_("photo"));
 document.getElementById("addCoworkerSign").addEventListener("click",  () => flushCoworkerInput_("sign"));
 document.getElementById("coworkerInputPhoto").addEventListener("keydown", e => {
