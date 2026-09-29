@@ -26,22 +26,24 @@
   .card{max-width:680px;width:100%;background:#fff;border-radius:24px;box-shadow:0 16px 40px -14px rgba(0,0,0,.18);padding:24px 24px 32px;}
 
 
-  .brand{
-    --logo-max-width: 380px;
-    --logo-max-height: 140px;
-    display:flex;
-    justify-content:center;
-    margin-bottom:18px;
-    padding:6px 0;
-  }
-  .brand img{
-    max-width:var(--logo-max-width);
-    max-height:var(--logo-max-height);
-    height:auto;
-    width:auto;
-    display:block;
-    object-fit:contain;
-  }
+.brand{
+  --logo-max-width: 380px;
+  --logo-max-height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 18px;
+  padding: 6px 0;
+  width: 100%;
+}
+.brand img{
+  display: block;
+  width: 100%;
+  max-width: var(--logo-max-width);
+  max-height: var(--logo-max-height);
+  height: auto;
+  object-fit: contain;
+}
 
   .sub{font-size:15px;color:#3d5170;margin-bottom:20px;border-left:4px solid #2f7ef5;padding-left:14px;line-height:1.45;font-weight:500;}
 
