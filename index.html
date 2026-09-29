@@ -4,24 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<!-- ============================================================
-     ⭐⭐⭐ CUSTOMIZE YOUR BRANDING HERE ⭐⭐⭐
-     ============================================================ -->
-
-<title>HighEnd Equipment · Field Portal</title>
+<title>RPM Diesel · Portal</title>
 <link rel="icon" type="image/png" href="https://via.placeholder.com/192x192/0b1b2f/ffffff?text=HE">
 <link rel="apple-touch-icon" href="https://via.placeholder.com/180x180/0b1b2f/ffffff?text=HE">
 <link rel="icon" type="image/png" sizes="192x192" href="https://via.placeholder.com/192x192/0b1b2f/ffffff?text=HE">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="HighEnd Equipment · Field Portal">
-<meta property="og:description" content="Field service photo & customer sign-off portal for HighEnd Equipment.">
+<meta property="og:title" content="RPM Diesel · Portal">
+<meta property="og:description" content="RPM Diesel portal for vessel service photo & customer sign-off.">
 <meta property="og:image" content="https://via.placeholder.com/1200x630/0b1b2f/ffffff?text=HighEnd+Equipment">
 <meta property="og:url" content="https://your-github-pages-url-here.com">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="HighEnd Equipment · Field Portal">
-<meta name="twitter:description" content="Field service photo & customer sign-off portal for HighEnd Equipment.">
+<meta name="twitter:title" content="RPM Diesel · Portal">
+<meta name="twitter:description" content="RPM Diesel portal for vessel service photo & customer sign-off.">
 <meta name="twitter:image" content="https://via.placeholder.com/1200x630/0b1b2f/ffffff?text=HighEnd+Equipment">
 
 <meta name="theme-color" content="#0b1b2f">
@@ -33,7 +29,7 @@
   body{background:#eef2f8;min-height:100vh;padding:14px;display:flex;justify-content:center;align-items:flex-start;color:#0b1b2f;}
   .card{max-width:680px;width:100%;background:#fff;border-radius:24px;box-shadow:0 16px 40px -14px rgba(0,0,0,.18);padding:24px 24px 32px;}
 
-  /* ============ HEADER LOGO ============ */
+
   .brand{
     --logo-max-width: 380px;
     --logo-max-height: 140px;
@@ -53,7 +49,7 @@
 
   .sub{font-size:15px;color:#3d5170;margin-bottom:20px;border-left:4px solid #2f7ef5;padding-left:14px;line-height:1.45;font-weight:500;}
 
-  /* ============ LOGIN SCREEN ============ */
+
   #loginScreen{display:block;}
   #portalContent{display:none;}
   body.logged-in #loginScreen{display:none;}
@@ -72,7 +68,6 @@
   .login-error{background:#ffe9e9;border:2px solid #e53935;color:#8a1f1f;font-size:14px;font-weight:600;padding:14px 16px;border-radius:14px;margin-top:14px;line-height:1.4;display:none;}
   .login-error.show{display:block;}
 
-  /* Connection error banner */
   .conn-banner{display:none;background:#ffe9e9;border:2px solid #e53935;border-radius:16px;padding:18px;margin-bottom:18px;color:#8a1f1f;font-weight:600;}
   .conn-banner.show{display:block;}
   .conn-banner h3{font-size:18px;margin-bottom:6px;color:#8a1f1f;}
@@ -224,7 +219,6 @@
   .modal-close-btn{margin-top:26px;padding:20px 40px;border:none;border-radius:16px;background:#0b1b2f;color:#fff;font-weight:800;font-size:18px;cursor:pointer;box-shadow:0 4px 0 #05101d;width:100%;letter-spacing:.3px;}
   .modal-close-btn:active{transform:translateY(3px);box-shadow:0 1px 0 #05101d;}
 
-  /* ============ FOOTER ============ */
   .footer{margin-top:32px;padding-top:20px;border-top:1px solid #e2eaf5;}
   .footer .company-name{font-size:13px;font-weight:800;color:#0b1b2f;letter-spacing:.4px;margin-bottom:8px;text-transform:uppercase;}
   .footer .footer-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;}
@@ -251,24 +245,19 @@
 <body>
 <div class="card">
 
-  <!-- ============================================================
-       HEADER LOGO (edit the src below)
-       ============================================================ -->
+
   <div class="brand">
     <!-- ⬇️ REPLACE THE src BELOW WITH YOUR LOGO URL ⬇️ -->
-    <img src="https://via.placeholder.com/440x120/ffffff/0b1b2f?text=HighEnd+Equipment" alt="HighEnd Equipment">
+    <img src="https://rpmdiesel.com/wp-content/uploads/2025/03/RPM-Logo-2025-2048x481.png" alt="RPM Diesel">
   </div>
 
-  <!-- ============================================================
-       LOGIN SCREEN (shown when not logged in)
-       ============================================================ -->
   <div id="loginScreen">
     <div class="login-wrap">
       <div class="login-title">Employee Sign In</div>
-      <div class="login-sub">Enter your name and the last 4 digits of your SSN to continue.</div>
+      <div class="login-sub">Enter your username and password to continue.</div>
 
       <div class="login-field">
-        <label>Full name</label>
+        <label>Username (Full name)</label>
         <input type="text" id="loginName" placeholder="e.g. John Smith" autocomplete="name" autocapitalize="words" spellcheck="false">
       </div>
 
@@ -283,15 +272,11 @@
     </div>
   </div>
 
-  <!-- ============================================================
-       PORTAL CONTENT (shown after login)
-       ============================================================ -->
   <div id="portalContent">
 
-    <!-- Connection error banner (only shows if GET fails) -->
     <div class="conn-banner" id="connBanner">
       <h3>⚠️ Can't reach the server</h3>
-      <p id="connBannerText">The page couldn't load the equipment list. This usually means the Apps Script URL is wrong or the deployment isn't set to "Anyone".</p>
+      <p id="connBannerText">The page couldn't load the vessel list.</p>
       <button id="connBannerTest">🔄 Reload Page</button>
     </div>
 
@@ -300,7 +285,7 @@
       <button id="modeSign">✍️ Customer Sign-off</button>
     </div>
 
-    <!-- ============ PHOTOS PANEL ============ -->
+
     <div id="panelPhotos" class="panel active">
       <div class="step">
         <div class="step-label"><span class="num">1</span> Which vessel did you service?</div>
@@ -335,11 +320,11 @@
           <div style="font-size:15px;font-weight:700;color:#3d5170;">Other techs with you (optional)</div>
           <div class="chips" id="coworkerChipsPhoto"></div>
           <div class="add-row">
-            <input type="text" id="coworkerInputPhoto" placeholder="Tap to see other techs…" autocomplete="off">
+            <input type="text" id="coworkerInputPhoto" placeholder="Tap to pick…" autocomplete="off">
             <button type="button" id="addCoworkerPhoto">+ Add</button>
             <div class="emp-dropdown" id="empDropdownPhoto"></div>
           </div>
-          <div class="hint">Tap the box to pick from your team, or type a name manually.</div>
+          <div class="hint">Tap the box to pick who was with you, or type a name manually.</div>
         </div>
         <div class="folder-preview" id="folderPreviewPhoto"></div>
       </div>
@@ -352,19 +337,18 @@
         </label>
         <input type="file" id="files" accept="image/*" multiple>
         <div class="photo-previews" id="photoPreviews"></div>
-        <div class="hint">Tap the box again any time to add more photos. They all upload together.</div>
+        <div class="hint">Tap the box again any time to add more photos.</div>
       </div>
 
       <div class="step">
         <div class="step-label"><span class="num">5</span> Additional notes (optional)</div>
         <textarea id="jobNotesPhoto" class="job-notes-textarea" placeholder="Any details about this job…" rows="4"></textarea>
-        <div class="hint">These notes will be saved with the submission. Leave blank if there's nothing to add.</div>
       </div>
 
       <button class="submit" id="submitPhotos">⬆️ Upload Photos</button>
     </div>
 
-    <!-- ============ SIGN PANEL ============ -->
+
     <div id="panelSign" class="panel">
       <div class="step">
         <div class="step-label"><span class="num">1</span> Which vessel did you service?</div>
@@ -393,11 +377,11 @@
           </div>
           <div>
             <label>Phone number</label>
-            <input type="tel" id="custPhone" placeholder="e.g. (555) 123-4567" autocomplete="off">
+            <input type="tel" id="custPhone" placeholder="e.g. (954) 123-4567" autocomplete="off">
           </div>
           <div>
             <label>Email address</label>
-            <input type="email" id="custEmail" placeholder="e.g. john@example.com" autocomplete="off">
+            <input type="email" id="custEmail" placeholder="e.g. john@gmail.com" autocomplete="off">
           </div>
           <div>
             <label>Address</label>
@@ -412,7 +396,6 @@
             <input type="text" id="custDate" readonly>
           </div>
         </div>
-        <div class="hint">Hand the device to the customer. They type their name and sign below.</div>
       </div>
 
       <div class="step">
@@ -434,11 +417,11 @@
           <div style="font-size:15px;font-weight:700;color:#3d5170;">Other techs with you (optional)</div>
           <div class="chips" id="coworkerChipsSign"></div>
           <div class="add-row">
-            <input type="text" id="coworkerInputSign" placeholder="Tap to see other techs…" autocomplete="off">
+            <input type="text" id="coworkerInputSign" placeholder="Tap to pick…" autocomplete="off">
             <button type="button" id="addCoworkerSign">+ Add</button>
             <div class="emp-dropdown" id="empDropdownSign"></div>
           </div>
-          <div class="hint">Tap the box to pick from your team, or type a name manually.</div>
+          <div class="hint">Tap the box to pick who was with you, or type a name manually.</div>
         </div>
         <div class="folder-preview" id="folderPreviewSign"></div>
       </div>
@@ -447,22 +430,21 @@
     </div>
   </div>
 
-  <!-- ============ FOOTER (visible on both login + portal) ============ -->
-  <!-- ⬇️ EDIT COMPANY NAME, ADDRESS, AND PHONE BELOW ⬇️ -->
+
   <div class="footer">
-    <div class="company-name">HighEnd Equipment Services</div>
+    <div class="company-name">RPM DIESEL ENGINE CO., INC.</div>
     <div class="footer-row">
       <a class="address-link" id="footerAddress" href="#" target="_blank" rel="noopener">
-        123 Marina Blvd, Suite 400<br>
-        Fort Lauderdale, FL 33301
+        2555 S.R 84<br>
+        Fort Lauderdale, FL 33312
       </a>
-      <a class="footer-phone" id="footerPhone" href="tel:+15551234567">(555) 123-4567</a>
+      <a class="footer-phone" id="footerPhone" href="tel:+19545871620">(954) 587-1620</a>
     </div>
   </div>
 
 </div>
 
-<!-- ============ ADD NEW EQUIPMENT MODAL ============ -->
+
 <div class="modal-backdrop" id="addModal">
   <div class="modal">
     <h3>Add New Vessel</h3>
@@ -493,7 +475,6 @@
   </div>
 </div>
 
-<!-- ============ STATUS MODAL ============ -->
 <div class="modal-backdrop" id="statusModal">
   <div class="status-modal">
     <div id="statusIconWrap">
@@ -507,20 +488,17 @@
   </div>
 </div>
 
-<!-- Hidden iframe + form -->
+
 <iframe name="upload_target" id="uploadTarget" style="display:none;" title="upload target"></iframe>
 <form id="uploadForm" target="upload_target" method="POST" enctype="text/plain" action="" style="display:none;">
   <input type="hidden" name="data" id="uploadData">
 </form>
 
 <script>
-/* ============================================================
-   ⚠️ CONFIG — REPLACE WITH YOUR DEPLOYED APPS SCRIPT URL
-   The URL must end in /exec  (NOT /dev)
-   ============================================================ */
+
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz4pxU3D9FSsfQj3u8Q2Z1B3CKzAy3ZiBPSXZ25-dwHaaEA7I7xZDx6APa_49b-lWbUnA/exec";
 
-/* ---------- Startup sanity check on the URL ---------- */
+
 (function checkUrlFormat() {
   if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.indexOf("PASTE_YOUR") === 0) {
     alert("⚠️ SETUP ERROR\n\nThe APPS_SCRIPT_URL has not been set in index.html.\n\nOpen the file in a text editor and replace PASTE_YOUR_WEB_APP_URL_HERE with your Apps Script Web App URL.");
@@ -537,21 +515,14 @@ const todayStr = (() => {
 })();
 document.getElementById("custDate").value = todayStr;
 
-/* ============================================================
-   FOOTER LINKS
-   ------------------------------------------------------------
-   On iPhone / iPad, use the native Apple Maps URL scheme.
-   Everywhere else, use Google Maps.
-   ============================================================ */
 (function setupFooter() {
-  const addressText = "123 Marina Blvd, Suite 400, Fort Lauderdale, FL 33301";
+  const addressText = "2555 S.R 84, Fort Lauderdale, FL 33312";
   const encoded = encodeURIComponent(addressText);
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
                 (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
   let mapsUrl;
   if (isIOS) {
-    // Apple Maps URL scheme — opens the native Maps app on iOS
     mapsUrl = "https://maps.apple.com/?q=" + encoded;
   } else {
     mapsUrl = "https://www.google.com/maps/search/?api=1&query=" + encoded;
@@ -559,14 +530,9 @@ document.getElementById("custDate").value = todayStr;
   document.getElementById("footerAddress").href = mapsUrl;
 })();
 
-/* ============================================================
-   LOGIN / SESSION
-   ------------------------------------------------------------
-   Session uses sessionStorage but is wiped on load so a page
-   refresh always signs the user out.
-   ============================================================ */
+
 const SESSION_KEY = "loggedInUser";
-let employeesCache = [];   // [{ name, ssn4 }]
+let employeesCache = [];   
 let currentUser = null;
 
 function setLoggedIn(name) {
@@ -600,7 +566,6 @@ async function loadEmployees() {
   }
 }
 
-// Force a fresh login on every page load
 (function forceFreshLogin() {
   sessionStorage.removeItem(SESSION_KEY);
 })();
@@ -664,9 +629,7 @@ document.getElementById("loginPassword").addEventListener("keydown", e => {
   if (e.key === "Enter") { e.preventDefault(); attemptLogin(); }
 });
 
-/* ============================================================
-   STATUS MODAL
-   ============================================================ */
+
 const statusModal    = document.getElementById("statusModal");
 const statusTitle    = document.getElementById("statusTitle");
 const statusBody     = document.getElementById("statusBody");
@@ -725,9 +688,7 @@ statusModal.addEventListener("click", (e) => {
   }
 });
 
-/* ============================================================
-   IFRAME UPLOAD
-   ============================================================ */
+
 function submitViaIframe(url, payload) {
   return new Promise((resolve, reject) => {
     const iframe = document.getElementById("uploadTarget");
@@ -756,9 +717,7 @@ function submitViaIframe(url, payload) {
   });
 }
 
-/* ============================================================
-   MODE SWITCH
-   ============================================================ */
+
 const btnP = document.getElementById("modePhotos");
 const btnS = document.getElementById("modeSign");
 const panP = document.getElementById("panelPhotos");
@@ -772,9 +731,7 @@ btnS.addEventListener("click", () => {
   panS.classList.add("active"); panP.classList.remove("active")
 });
 
-/* ============================================================
-   EQUIPMENT CACHE + RECENTS
-   ============================================================ */
+
 let equipmentList = [];
 const RECENTS_KEY = "recentEquipmentIds";
 const MAX_RECENTS = 8;
@@ -829,9 +786,7 @@ document.getElementById("connBannerTest").addEventListener("click", function() {
   window.location.reload();
 });
 
-/* ============================================================
-   PICKER
-   ============================================================ */
+
 const pickerState = {
   photo: { selected: null },
   sign:  { selected: null }
@@ -1001,9 +956,7 @@ document.addEventListener("click", (e) => {
   });
 });
 
-/* ============================================================
-   FIND OR CREATE VESSEL
-   ============================================================ */
+
 async function findOrCreateVessel_(which) {
   if (pickerState[which].selected) return pickerState[which].selected;
 
@@ -1068,9 +1021,7 @@ async function findOrCreateVessel_(which) {
   return null;
 }
 
-/* ============================================================
-   ADD NEW EQUIPMENT MODAL
-   ============================================================ */
+
 let pendingWhich = "photo";
 
 function openAddModal_(which) {
@@ -1181,9 +1132,7 @@ document.getElementById("addConfirm").addEventListener("click", async () => {
   }
 });
 
-/* ============================================================
-   COWORKERS
-   ============================================================ */
+
 const coworkers = { photo: [], sign: [] };
 
 function slugifyName_(name) {
@@ -1247,9 +1196,6 @@ function flushCoworkerInput_(which) {
   hideEmpDropdown_(which);
 }
 
-/* ============================================================
-   EMPLOYEE SUGGESTION DROPDOWN
-   ============================================================ */
 function hideEmpDropdown_(which) {
   const dd = document.getElementById(which === "photo" ? "empDropdownPhoto" : "empDropdownSign");
   if (dd) dd.classList.remove("show");
@@ -1305,9 +1251,7 @@ document.getElementById("coworkerInputSign").addEventListener("keydown", e => {
   if (e.key === "Enter") { e.preventDefault(); flushCoworkerInput_("sign"); }
 });
 
-/* ============================================================
-   FOLDER PREVIEW (hidden)
-   ============================================================ */
+
 function updateFolderPreviews() {
   ["photo","sign"].forEach(which => {
     const el = document.getElementById(which === "photo" ? "folderPreviewPhoto" : "folderPreviewSign");
@@ -1328,9 +1272,7 @@ document.querySelectorAll('input[name="ptype"]').forEach(r => {
   r.addEventListener("change", updateFolderPreviews);
 });
 
-/* ============================================================
-   PHOTO INPUT + PREVIEWS
-   ============================================================ */
+
 const filesInput = document.getElementById("files");
 const fileBtn = document.getElementById("fileBtn");
 const fileCount = document.getElementById("fileCount");
@@ -1388,9 +1330,7 @@ filesInput.addEventListener("change", () => {
   renderPhotoPreviews();
 });
 
-/* ============================================================
-   PHOTO SUBMIT
-   ============================================================ */
+
 document.getElementById("submitPhotos").addEventListener("click", async () => {
   const btn = document.getElementById("submitPhotos");
   flushCoworkerInput_("photo");
@@ -1420,7 +1360,7 @@ document.getElementById("submitPhotos").addEventListener("click", async () => {
   try {
     let chosen = pickerState.photo.selected;
     if (!chosen) {
-      showLoading("Saving vessel…", "One moment.");
+      showLoading("Saving vessel…", "This takes a few seconds. Please wait.");
       chosen = await findOrCreateVessel_("photo");
       if (!chosen) {
         throw new Error("Could not create or find the vessel.");
@@ -1471,9 +1411,7 @@ document.getElementById("submitPhotos").addEventListener("click", async () => {
   }
 });
 
-/* ============================================================
-   SIGNATURE PAD
-   ============================================================ */
+
 const canvas = document.getElementById("sig");
 const ctx = canvas.getContext("2d");
 let signed = false;
@@ -1514,9 +1452,6 @@ document.getElementById("clearSig").addEventListener("click", () => {
   signed = false;
 });
 
-/* ============================================================
-   SIGN SUBMIT
-   ============================================================ */
 document.getElementById("submitSign").addEventListener("click", async () => {
   const btn = document.getElementById("submitSign");
   flushCoworkerInput_("sign");
@@ -1546,7 +1481,7 @@ document.getElementById("submitSign").addEventListener("click", async () => {
   try {
     let chosen = pickerState.sign.selected;
     if (!chosen) {
-      showLoading("Saving vessel…", "One moment.");
+      showLoading("Saving vessel…", "This takes a few seconds. Please wait.");
       chosen = await findOrCreateVessel_("sign");
       if (!chosen) {
         throw new Error("Could not create or find the vessel.");
@@ -1568,7 +1503,7 @@ document.getElementById("submitSign").addEventListener("click", async () => {
       signature: sigData
     };
 
-    showLoading("Saving signature…", "Please wait. Do not close this page.");
+    showLoading("Saving signature…", "This takes a few seconds. Please wait.");
     await submitViaIframe(APPS_SCRIPT_URL, payload);
 
     showSuccess("All done — thank you!", "Customer signature saved.");
@@ -1595,7 +1530,6 @@ document.getElementById("submitSign").addEventListener("click", async () => {
   }
 });
 
-/* ---------- helper ---------- */
 function escapeHTML_(s) {
   return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
 }
