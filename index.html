@@ -152,6 +152,9 @@
   .text-input:focus{border-color:#2f7ef5;box-shadow:0 0 0 4px rgba(47,126,245,.15);}
   .text-input[readonly]{background:#f4f9ff;color:#0b1b2f;border-color:#dde8f5;cursor:default;}
 
+  .job-notes-textarea{width:100%;padding:18px;border:2px solid #c9d6e8;border-radius:16px;font-size:17px;background:#fff;outline:none;font-weight:600;font-family:'Inter',sans-serif;resize:vertical;min-height:100px;color:#0b1b2f;}
+  .job-notes-textarea:focus{border-color:#2f7ef5;box-shadow:0 0 0 4px rgba(47,126,245,.15);}
+
   .coworkers-box{background:#fff;border:2px solid #c9d6e8;border-radius:16px;padding:16px;margin-top:10px;}
   .coworkers-box .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;}
   .coworkers-box .chip{background:#1e6df2;color:#fff;font-size:15px;font-weight:700;padding:9px 14px;border-radius:24px;display:flex;align-items:center;gap:8px;}
@@ -352,6 +355,12 @@
         <div class="hint">Tap the box again any time to add more photos. They all upload together.</div>
       </div>
 
+      <div class="step">
+        <div class="step-label"><span class="num">5</span> Additional notes (optional)</div>
+        <textarea id="jobNotesPhoto" class="job-notes-textarea" placeholder="Any details about this job…" rows="4"></textarea>
+        <div class="hint">These notes will be saved with the submission. Leave blank if there's nothing to add.</div>
+      </div>
+
       <button class="submit" id="submitPhotos">⬆️ Upload Photos</button>
     </div>
 
@@ -436,18 +445,18 @@
 
       <button class="submit" id="submitSign">✅ Save Customer Sign-off</button>
     </div>
+  </div>
 
-    <!-- ============ FOOTER ============ -->
-    <!-- ⬇️ EDIT COMPANY NAME, ADDRESS, AND PHONE BELOW ⬇️ -->
-    <div class="footer">
-      <div class="company-name">HighEnd Equipment Services</div>
-      <div class="footer-row">
-        <a class="address-link" id="footerAddress" href="#" target="_blank" rel="noopener">
-          123 Marina Blvd, Suite 400<br>
-          Fort Lauderdale, FL 33301
-        </a>
-        <a class="footer-phone" id="footerPhone" href="tel:+15551234567">(555) 123-4567</a>
-      </div>
+  <!-- ============ FOOTER (visible on both login + portal) ============ -->
+  <!-- ⬇️ EDIT COMPANY NAME, ADDRESS, AND PHONE BELOW ⬇️ -->
+  <div class="footer">
+    <div class="company-name">HighEnd Equipment Services</div>
+    <div class="footer-row">
+      <a class="address-link" id="footerAddress" href="#" target="_blank" rel="noopener">
+        123 Marina Blvd, Suite 400<br>
+        Fort Lauderdale, FL 33301
+      </a>
+      <a class="footer-phone" id="footerPhone" href="tel:+15551234567">(555) 123-4567</a>
     </div>
   </div>
 
@@ -530,22 +539,35 @@ document.getElementById("custDate").value = todayStr;
 
 /* ============================================================
    FOOTER LINKS
+   ------------------------------------------------------------
+   On iPhone / iPad, use the native Apple Maps URL scheme.
+   Everywhere else, use Google Maps.
    ============================================================ */
 (function setupFooter() {
   const addressText = "123 Marina Blvd, Suite 400, Fort Lauderdale, FL 33301";
-  const mapsUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(addressText);
+  const encoded = encodeURIComponent(addressText);
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+  let mapsUrl;
+  if (isIOS) {
+    // Apple Maps URL scheme — opens the native Maps app on iOS
+    mapsUrl = "https://maps.apple.com/?q=" + encoded;
+  } else {
+    mapsUrl = "https://www.google.com/maps/search/?api=1&query=" + encoded;
+  }
   document.getElementById("footerAddress").href = mapsUrl;
 })();
 
 /* ============================================================
    LOGIN / SESSION
    ------------------------------------------------------------
-   Session uses sessionStorage so a page refresh signs the user
-   out automatically. Nothing is remembered across reloads.
+   Session uses sessionStorage but is wiped on load so a page
+   refresh always signs the user out.
    ============================================================ */
 const SESSION_KEY = "loggedInUser";
 let employeesCache = [];   // [{ name, ssn4 }]
-let currentUser = null;    // string — canonical name from sheet
+let currentUser = null;
 
 function setLoggedIn(name) {
   currentUser = name;
@@ -578,10 +600,7 @@ async function loadEmployees() {
   }
 }
 
-// Restore session only within the same tab (sessionStorage survives
-// soft in-app navigations but is wiped on full page refresh).
-// Actually sessionStorage DOES survive refresh — so we explicitly
-// wipe on load to force a fresh login every time.
+// Force a fresh login on every page load
 (function forceFreshLogin() {
   sessionStorage.removeItem(SESSION_KEY);
 })();
@@ -983,7 +1002,7 @@ document.addEventListener("click", (e) => {
 });
 
 /* ============================================================
-   FIND OR CREATE VESSEL (reliable, wait-for-confirmation)
+   FIND OR CREATE VESSEL
    ============================================================ */
 async function findOrCreateVessel_(which) {
   if (pickerState[which].selected) return pickerState[which].selected;
@@ -1379,6 +1398,7 @@ document.getElementById("submitPhotos").addEventListener("click", async () => {
   const ptype  = getPtype_();
   const lead   = currentUser || "";
   const extras = coworkers.photo.slice();
+  const jobNotes = document.getElementById("jobNotesPhoto").value.trim();
 
   const modelVal = document.getElementById("modelPhoto").value.trim();
   if (!modelVal) {
@@ -1424,7 +1444,8 @@ document.getElementById("submitPhotos").addEventListener("click", async () => {
       date: todayStr,
       techLead: lead,
       coworkers: extras,
-      files: fileData
+      files: fileData,
+      jobNotes: jobNotes
     };
 
     showLoading(
@@ -1440,6 +1461,7 @@ document.getElementById("submitPhotos").addEventListener("click", async () => {
     selectedPhotos = [];
     updateFileCount();
     renderPhotoPreviews();
+    document.getElementById("jobNotesPhoto").value = "";
   } catch (err) {
     console.error(err);
     showError("Upload failed", "Check your internet and try again. Nothing was lost.");
